@@ -7,6 +7,9 @@ void  traversal(int arr[],int length);
 void insert_begin(int arr[],int length,int value);
 void  insert_at_position(int arr[],int length,int position,int value);
 void insert_end(int arr[],int length,int value);
+void delete_begin(int arr[],int length);
+void delete_at_position(int arr[],int length,int position);
+void delete_end(int arr[],int length);
 int main()
 {
     int arr[50],length,ch,value,position;
@@ -17,6 +20,9 @@ int main()
     cout<< "Press 2 for Insert at Beginning \n";
     cout<< "Press 3 for Insert at given Position \n ";
     cout<< "Press 4 for Insert at End  \n";
+    cout<< "Press 5 for Delete at Beginning \n";
+    cout<< "Press 6 for Delete at given Position \n ";
+    cout<< "Press 7 for Delete at End  \n";
 
     cin >> ch;
 
@@ -33,6 +39,15 @@ int main()
         break;
     case 4:
         insert_end(arr,length,value);
+        break;
+    case 5:
+        delete_begin(arr,length);
+        break;
+    case 6:
+        delete_at_position(arr,length,position);
+        break;
+    case 7:
+        delete_end(arr,length);
         break;
     default:
         cout<< "Invalid key pressed ";
@@ -147,3 +162,47 @@ void insert_end(int arr[],int length,int value)
 /*NOTE
 for the array which is not sorted ie. unsorted , for insertion operation we can directly insert the element at the given position
 and shift that element at the last  ie. a[length]=a[position-1];  a[position-1]=value; thus here the complexity would be O(1)*/
+
+
+void delete_begin(int arr[],int length)
+{
+    cout<<arr[0]<<" DELETED\n";
+    for(int i=0;i<length-1;i++)
+    {
+        arr[i]=arr[i+1];
+    }
+    length--;
+    traversal(arr,length);
+}
+
+void  delete_at_position(int arr[],int length,int position)
+{
+    cout<<"ENTER THE POSITION AT WHICH THE ELEMENT IS TO BE DELETED: ";
+    cin>>position;
+
+    cout<<arr[position-1]<<" DELETED\n";
+    if(position<=0 || position>length-1)
+    {
+        cout<<"ENTER VALID POSITION ";
+    }
+    else
+    {
+        //if(arr[0]!='\0') here don't need to check the if the array is having elements or not becoz at the initially while creating the error it is checked
+
+            for(int i=position-1;i<length-1;i++)
+            {
+                arr[i]=arr[i+1];
+            }
+            length--;
+            traversal(arr,length);
+    }
+}
+
+void  delete_end(int arr[],int length)
+{
+    cout<<arr[length-1]<<" DELETED\n";
+    length--;
+    traversal(arr,length);
+}
+
+//here the complexity is exactly same as that of the insert
